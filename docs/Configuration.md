@@ -55,6 +55,12 @@ API version written into `info.version`.
 <version>2.1.0</version>
 ```
 
+Can also be set on the command line:
+
+```bash
+mvn process-classes -Dopenapi.generator.version=2.1.0
+```
+
 Default: `1.0.0`
 
 ---
@@ -92,6 +98,12 @@ Path of the generated file, relative to the project base directory.
 
 ```xml
 <outputFile>docs/swagger/openapi.yaml</outputFile>
+```
+
+Can also be set on the command line:
+
+```bash
+mvn process-classes -Dopenapi.generator.outputFile=target/my-api.yaml
 ```
 
 Default: `docs/swagger/openapi.yaml`
@@ -153,6 +165,12 @@ Shorthand for a single server URL. Ignored when `<servers>` is provided.
 <serverUrl>https://api.example.com</serverUrl>
 ```
 
+Can also be set on the command line:
+
+```bash
+mvn process-classes -Dopenapi.generator.serverUrl=https://api.example.com
+```
+
 Default: `/`
 
 ---
@@ -166,6 +184,12 @@ Appended to every server URL as a path segment. Useful for servlet context paths
 ```
 
 Given `https://api.example.com` and `contextPath=my-api`, the server URL in the generated spec becomes `https://api.example.com/my-api/`.
+
+Can also be set on the command line:
+
+```bash
+mvn process-classes -Dopenapi.generator.contextPath=my-api
+```
 
 Omit or leave blank to use server URLs as-is.
 

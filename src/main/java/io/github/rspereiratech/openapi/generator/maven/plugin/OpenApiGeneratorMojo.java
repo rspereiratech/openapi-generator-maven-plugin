@@ -127,7 +127,7 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
     // ------------------------------------------------------------------
 
     /** Path of the generated YAML file. Defaults to {@code target/docs/swagger/openapi.yaml}. */
-    @Parameter(defaultValue = "docs/swagger/openapi.yaml")
+    @Parameter(defaultValue = "docs/swagger/openapi.yaml", property = "openapi.generator.outputFile")
     private File outputFile;
 
     /** API title written into the {@code info} block. */
@@ -139,7 +139,7 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
     private String description;
 
     /** API version written into the {@code info} block. */
-    @Parameter(defaultValue = "1.0.0")
+    @Parameter(defaultValue = "1.0.0", property = "openapi.generator.version")
     private String version;
 
     /**
@@ -155,7 +155,7 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
      * Shorthand for a single server URL (backward-compatible).
      * Ignored when {@code <servers>} is present.
      */
-    @Parameter(defaultValue = "/")
+    @Parameter(defaultValue = "/", property = "openapi.generator.serverUrl")
     private String serverUrl;
 
     /** Contact name for the {@code info.contact} block. */
@@ -251,7 +251,7 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
      *
      * <p>Omit or leave blank to use server URLs as-is.
      */
-    @Parameter
+    @Parameter(property = "openapi.generator.contextPath")
     private String contextPath;
 
     /**
