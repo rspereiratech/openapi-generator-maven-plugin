@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [1.1.0] — 2026-03-09
+## [1.1.0] — 2026-03-10
+
+### Added
+
+- `sortOutput` parameter — when `true`, controllers are sorted alphabetically by canonical class name before processing and the resulting `paths` block is sorted alphabetically, guaranteeing deterministic spec output across machines and builds; default `false`; configurable via `-Dopenapi.generator.sortOutput`
 
 ### Changed
 

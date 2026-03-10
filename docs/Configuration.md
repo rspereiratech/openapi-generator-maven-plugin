@@ -253,6 +253,29 @@ Additional annotation class names treated as controller stereotypes, beyond the 
 
 ## Skip
 
+### `sortOutput`
+
+When `true`, enables deterministic output:
+
+- Controllers are sorted alphabetically by canonical class name before processing.
+- The `paths` block is sorted alphabetically after all controllers are processed.
+
+This guarantees that the generated spec is byte-for-byte identical across machines and builds, regardless of filesystem or JVM ordering. Useful for version-controlled spec files where noise-free diffs matter.
+
+```xml
+<sortOutput>true</sortOutput>
+```
+
+Can also be set on the command line:
+
+```bash
+mvn process-classes -Dopenapi.generator.sortOutput=true
+```
+
+Default: `false`
+
+---
+
 ### `skip`
 
 Skips goal execution entirely when set to `true`.
@@ -277,7 +300,7 @@ Default: `false`
 <plugin>
   <groupId>io.github.rspereiratech</groupId>
   <artifactId>openapi-generator-maven-plugin</artifactId>
-  <version>1.0.0</version>
+  <version>{latest-version}</version>
   <executions>
     <execution>
       <goals>
@@ -320,6 +343,7 @@ Default: `false`
     <controllerAnnotations>
       <controllerAnnotation>com.example.annotation.MyApiEndpoint</controllerAnnotation>
     </controllerAnnotations>
+    <sortOutput>true</sortOutput>
   </configuration>
 </plugin>
 ```

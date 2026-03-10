@@ -31,9 +31,9 @@ This module is the Maven plugin layer that bridges the Maven lifecycle with `ope
 ```
 openapi-generator-maven-plugin/
 ├── src/
-│   ├── main/java/.../
+│   ├── main/java/io/github/rspereiratech/openapi/generator/maven/plugin/
 │   │   └── OpenApiGeneratorMojo.java   # Single Mojo — all plugin logic lives here
-│   └── test/java/.../
+│   └── test/java/io/github/rspereiratech/openapi/generator/maven/plugin/
 │       └── OpenApiGeneratorMojoTest.java
 └── pom.xml
 ```
