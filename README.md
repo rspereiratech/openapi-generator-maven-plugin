@@ -24,6 +24,7 @@ The plugin binds to the `process-classes` Maven lifecycle phase and scans your c
   - [Servers](#servers)
   - [Security Schemes](#security-schemes)
   - [Custom Controller Annotations](#custom-controller-annotations)
+  - [Parameter Type Filtering](#parameter-type-filtering)
 - [Skipping the Goal](#skipping-the-goal)
 - [Output Formats](#output-formats)
 - [License](#license)
@@ -123,6 +124,9 @@ mvn process-classes
 | `licenseUrl` | — | License URL written into `info.license`. |
 | `contextPath` | — | Appended to every server URL as a path segment. |
 | `outputFormat` | `YAML` | Output format: `YAML` or `JSON`. |
+| `sortOutput` | `false` | Sorts controllers and paths alphabetically for deterministic output. |
+| `ignoreDefaultParamTypes` | `true` | Skips built-in framework-injected types (`Locale`, `HttpServletRequest`, `Principal`, etc.). |
+| `additionalIgnoredParamTypes` | _(empty)_ | Extra parameter type FQNs to ignore on top of the defaults. |
 | `skip` | `false` | Skips goal execution when `true`. |
 
 ### Servers
@@ -193,6 +197,24 @@ Use `<controllerAnnotations>` only when your custom annotation does **not** tran
 <controllerAnnotations>
   <controllerAnnotation>com.example.annotation.MyApiEndpoint</controllerAnnotation>
 </controllerAnnotations>
+```
+
+### Parameter Type Filtering
+
+The plugin maintains a built-in list of framework-injected parameter types that are silently skipped and never appear as OpenAPI parameters: `Locale`, `HttpServletRequest`, `HttpServletResponse`, `HttpSession`, `ServletRequest`, `ServletResponse`, `WebRequest`, `NativeWebRequest`, `BindingResult`, `Errors`, `Model`, `ModelMap`, `Principal`.
+
+To disable this behaviour:
+
+```xml
+<ignoreDefaultParamTypes>false</ignoreDefaultParamTypes>
+```
+
+To ignore additional project-specific types on top of the defaults:
+
+```xml
+<additionalIgnoredParamTypes>
+  <additionalIgnoredParamType>com.example.security.TenantContext</additionalIgnoredParamType>
+</additionalIgnoredParamTypes>
 ```
 
 ---

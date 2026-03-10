@@ -276,6 +276,45 @@ Default: `false`
 
 ---
 
+## Parameter Type Filtering
+
+### `ignoreDefaultParamTypes`
+
+When `true` (default), the following framework-injected parameter types are silently skipped and never appear as OpenAPI parameters:
+
+`java.util.Locale`, `java.security.Principal`, `jakarta.servlet.http.HttpServletRequest`, `jakarta.servlet.http.HttpServletResponse`, `jakarta.servlet.http.HttpSession`, `jakarta.servlet.ServletRequest`, `jakarta.servlet.ServletResponse`, `org.springframework.web.context.request.WebRequest`, `org.springframework.web.context.request.NativeWebRequest`, `org.springframework.validation.BindingResult`, `org.springframework.validation.Errors`, `org.springframework.ui.Model`, `org.springframework.ui.ModelMap`
+
+Set to `false` to disable this behaviour:
+
+```xml
+<ignoreDefaultParamTypes>false</ignoreDefaultParamTypes>
+```
+
+Can also be set on the command line:
+
+```bash
+mvn process-classes -Dopenapi.generator.ignoreDefaultParamTypes=false
+```
+
+Default: `true`
+
+---
+
+### `additionalIgnoredParamTypes`
+
+Fully-qualified class names of extra parameter types to ignore, applied on top of the built-in defaults. Useful for project-specific types that should never appear as OpenAPI parameters.
+
+```xml
+<additionalIgnoredParamTypes>
+  <additionalIgnoredParamType>com.example.security.TenantContext</additionalIgnoredParamType>
+  <additionalIgnoredParamType>com.example.audit.AuditContext</additionalIgnoredParamType>
+</additionalIgnoredParamTypes>
+```
+
+Default: _(empty)_
+
+---
+
 ### `skip`
 
 Skips goal execution entirely when set to `true`.

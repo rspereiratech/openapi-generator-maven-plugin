@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- `ignoreDefaultParamTypes` parameter — when `true` (default), the built-in list of framework-injected parameter types is silently skipped; set to `false` to disable; configurable via `-Dopenapi.generator.ignoreDefaultParamTypes`
+- `additionalIgnoredParamTypes` parameter — list of extra fully-qualified class names to ignore on top of the built-in defaults
+
+---
+
 ## [1.1.0] — 2026-03-10
 
 ### Added
