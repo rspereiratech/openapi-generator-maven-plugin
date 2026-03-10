@@ -253,6 +253,21 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
     @Parameter
     private String contextPath;
 
+    /**
+     * When {@code true}, controllers are sorted alphabetically by canonical class name
+     * before processing, and the resulting paths are sorted alphabetically in the final
+     * spec. This guarantees a deterministic output regardless of filesystem or JVM ordering,
+     * which is especially useful in CI environments where file discovery order can vary.
+     *
+     * <p>Defaults to {@code false} to preserve discovery order.
+     *
+     * <pre>{@code
+     * <sortOutput>true</sortOutput>
+     * }</pre>
+     */
+    @Parameter(defaultValue = "false", property = "openapi.generator.sortOutput")
+    private boolean sortOutput;
+
     /** Set to {@code true} to skip the execution of this goal entirely. */
     @Parameter(defaultValue = "false", property = "openapi.generator.skip")
     private boolean skip;
@@ -367,7 +382,8 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
                 .licenseName(licenseName)
                 .licenseUrl(licenseUrl)
                 .outputFormat(format)
-                .contextPath(contextPath);
+                .contextPath(contextPath)
+                .sortOutput(sortOutput);
 
         if (controllerAnnotations != null && !controllerAnnotations.isEmpty()) {
             builder.controllerAnnotations(controllerAnnotations);
