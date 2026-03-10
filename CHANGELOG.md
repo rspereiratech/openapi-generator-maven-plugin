@@ -10,16 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- `sortOutput` parameter — when `true`, controllers are sorted alphabetically by canonical class name before processing and the resulting `paths` block is sorted alphabetically, guaranteeing deterministic spec output across machines and builds; default `false`; configurable via `-Dopenapi.generator.sortOutput`
 - `ignoreDefaultParamTypes` parameter — when `true` (default), the built-in list of framework-injected parameter types is silently skipped; set to `false` to disable; configurable via `-Dopenapi.generator.ignoreDefaultParamTypes`
 - `additionalIgnoredParamTypes` parameter — list of extra fully-qualified class names to ignore on top of the built-in defaults
-
----
-
-## [1.1.0] — 2026-03-10
-
-### Added
-
-- `sortOutput` parameter — when `true`, controllers are sorted alphabetically by canonical class name before processing and the resulting `paths` block is sorted alphabetically, guaranteeing deterministic spec output across machines and builds; default `false`; configurable via `-Dopenapi.generator.sortOutput`
 
 ### Changed
 
