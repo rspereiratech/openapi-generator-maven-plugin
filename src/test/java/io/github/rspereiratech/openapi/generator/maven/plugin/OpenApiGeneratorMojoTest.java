@@ -819,4 +819,57 @@ class OpenApiGeneratorMojoTest {
                     () -> invokePrivate(mojo, "buildConfig"));
         }
     }
+
+    // ==================================================================
+    // 13. buildConfig – defaultProducesMediaType / defaultConsumesMediaType
+    // ==================================================================
+
+    @Nested
+    @DisplayName("buildConfig – media type defaults wiring (via reflection)")
+    class BuildConfigMediaTypeDefaultsTests {
+
+        @Test
+        @DisplayName("defaultProducesMediaType defaults to '*/*'")
+        void defaultProducesMediaTypeIsWildcard() throws Exception {
+            OpenApiGeneratorMojo mojo = minimalMojo();
+
+            GeneratorConfig config = invokePrivate(mojo, "buildConfig");
+
+            Assertions.assertEquals("*/*", config.defaultProducesMediaType(),
+                    "defaultProducesMediaType must default to '*/*'");
+        }
+
+        @Test
+        @DisplayName("defaultConsumesMediaType defaults to 'application/json'")
+        void defaultConsumesMediaTypeIsApplicationJson() throws Exception {
+            OpenApiGeneratorMojo mojo = minimalMojo();
+
+            GeneratorConfig config = invokePrivate(mojo, "buildConfig");
+
+            Assertions.assertEquals("application/json", config.defaultConsumesMediaType(),
+                    "defaultConsumesMediaType must default to 'application/json'");
+        }
+
+        @Test
+        @DisplayName("custom defaultProducesMediaType is propagated to GeneratorConfig")
+        void customDefaultProducesMediaTypePropagated() throws Exception {
+            OpenApiGeneratorMojo mojo = minimalMojo();
+            setField(mojo, "defaultProducesMediaType", "application/json");
+
+            GeneratorConfig config = invokePrivate(mojo, "buildConfig");
+
+            Assertions.assertEquals("application/json", config.defaultProducesMediaType());
+        }
+
+        @Test
+        @DisplayName("custom defaultConsumesMediaType is propagated to GeneratorConfig")
+        void customDefaultConsumesMediaTypePropagated() throws Exception {
+            OpenApiGeneratorMojo mojo = minimalMojo();
+            setField(mojo, "defaultConsumesMediaType", "application/xml");
+
+            GeneratorConfig config = invokePrivate(mojo, "buildConfig");
+
+            Assertions.assertEquals("application/xml", config.defaultConsumesMediaType());
+        }
+    }
 }

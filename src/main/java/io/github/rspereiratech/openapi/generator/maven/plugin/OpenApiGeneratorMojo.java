@@ -295,6 +295,31 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
     @Parameter
     private List<String> additionalIgnoredParamTypes;
 
+    /**
+     * Default media type for response bodies when no {@code produces} attribute is declared
+     * on the handler method and no {@code mediaType} is set in {@code @Content}.
+     * Mirrors {@code springdoc.default-produces-media-type}. Defaults to {@code *}{@code /*}.
+     *
+     * <pre>{@code
+     * <defaultProducesMediaType>application/json</defaultProducesMediaType>
+     * }</pre>
+     */
+    @Parameter(defaultValue = "*/*", property = "openapi.generator.defaultProducesMediaType")
+    private String defaultProducesMediaType = "*/*";
+
+    /**
+     * Default media type for request bodies when no {@code consumes} attribute is declared
+     * on the handler method.
+     * Mirrors {@code springdoc.default-consumes-media-type}. Defaults to
+     * {@code application/json}.
+     *
+     * <pre>{@code
+     * <defaultConsumesMediaType>application/json</defaultConsumesMediaType>
+     * }</pre>
+     */
+    @Parameter(defaultValue = "application/json", property = "openapi.generator.defaultConsumesMediaType")
+    private String defaultConsumesMediaType = "application/json";
+
     /** Set to {@code true} to skip the execution of this goal entirely. */
     @Parameter(defaultValue = "false", property = "openapi.generator.skip")
     private boolean skip;
@@ -411,7 +436,9 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
                 .outputFormat(format)
                 .contextPath(contextPath)
                 .sortOutput(sortOutput)
-                .ignoreDefaultParamTypes(ignoreDefaultParamTypes);
+                .ignoreDefaultParamTypes(ignoreDefaultParamTypes)
+                .defaultProducesMediaType(defaultProducesMediaType)
+                .defaultConsumesMediaType(defaultConsumesMediaType);
 
         if (additionalIgnoredParamTypes != null && !additionalIgnoredParamTypes.isEmpty()) {
             builder.additionalIgnoredParamTypes(additionalIgnoredParamTypes);

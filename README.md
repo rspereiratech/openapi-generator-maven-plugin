@@ -127,6 +127,8 @@ mvn process-classes
 | `sortOutput` | `false` | Sorts controllers and paths alphabetically for deterministic output. |
 | `ignoreDefaultParamTypes` | `true` | Skips built-in framework-injected types (`Locale`, `HttpServletRequest`, `Principal`, etc.). |
 | `additionalIgnoredParamTypes` | _(empty)_ | Extra parameter type FQNs to ignore on top of the defaults. |
+| `defaultProducesMediaType` | `*/*` | Fallback media type for response bodies; mirrors `springdoc.default-produces-media-type`. |
+| `defaultConsumesMediaType` | `application/json` | Fallback media type for request bodies; mirrors `springdoc.default-consumes-media-type`. |
 | `skip` | `false` | Skips goal execution when `true`. |
 
 ### Servers

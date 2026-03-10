@@ -315,6 +315,46 @@ Default: _(empty)_
 
 ---
 
+### `defaultProducesMediaType`
+
+The fallback media type used in response `content` blocks when no `produces` attribute is declared on the mapping annotation and no `@Content(mediaType = ...)` is specified.
+
+Mirrors `springdoc.default-produces-media-type`. Explicit `produces` values always take precedence.
+
+```xml
+<defaultProducesMediaType>application/json</defaultProducesMediaType>
+```
+
+Can also be set on the command line:
+
+```bash
+mvn process-classes -Dopenapi.generator.defaultProducesMediaType=application/json
+```
+
+Default: `*/*`
+
+---
+
+### `defaultConsumesMediaType`
+
+The fallback media type used in request body `content` blocks when no `consumes` attribute is declared on the mapping annotation and no `@Content(mediaType = ...)` is specified.
+
+Mirrors `springdoc.default-consumes-media-type`. Explicit `consumes` values always take precedence.
+
+```xml
+<defaultConsumesMediaType>application/xml</defaultConsumesMediaType>
+```
+
+Can also be set on the command line:
+
+```bash
+mvn process-classes -Dopenapi.generator.defaultConsumesMediaType=application/xml
+```
+
+Default: `application/json`
+
+---
+
 ### `skip`
 
 Skips goal execution entirely when set to `true`.
