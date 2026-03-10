@@ -269,6 +269,32 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
     @Parameter(defaultValue = "false", property = "openapi.generator.sortOutput")
     private boolean sortOutput;
 
+    /**
+     * When {@code true} (default), the built-in set of framework-injected parameter types
+     * (e.g. {@code java.util.Locale}, {@code jakarta.servlet.http.HttpServletRequest},
+     * {@code java.security.Principal}) is silently skipped during parameter processing.
+     * Set to {@code false} to disable this behaviour.
+     *
+     * <pre>{@code
+     * <ignoreDefaultParamTypes>false</ignoreDefaultParamTypes>
+     * }</pre>
+     */
+    @Parameter(defaultValue = "true", property = "openapi.generator.ignoreDefaultParamTypes")
+    private boolean ignoreDefaultParamTypes = true;
+
+    /**
+     * Additional fully-qualified class names of parameter types to ignore, on top of
+     * the built-in defaults (when {@code ignoreDefaultParamTypes} is {@code true}).
+     *
+     * <pre>{@code
+     * <additionalIgnoredParamTypes>
+     *   <additionalIgnoredParamType>com.example.MyCustomContext</additionalIgnoredParamType>
+     * </additionalIgnoredParamTypes>
+     * }</pre>
+     */
+    @Parameter
+    private List<String> additionalIgnoredParamTypes;
+
     /** Set to {@code true} to skip the execution of this goal entirely. */
     @Parameter(defaultValue = "false", property = "openapi.generator.skip")
     private boolean skip;
@@ -384,7 +410,12 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
                 .licenseUrl(licenseUrl)
                 .outputFormat(format)
                 .contextPath(contextPath)
-                .sortOutput(sortOutput);
+                .sortOutput(sortOutput)
+                .ignoreDefaultParamTypes(ignoreDefaultParamTypes);
+
+        if (additionalIgnoredParamTypes != null && !additionalIgnoredParamTypes.isEmpty()) {
+            builder.additionalIgnoredParamTypes(additionalIgnoredParamTypes);
+        }
 
         if (controllerAnnotations != null && !controllerAnnotations.isEmpty()) {
             builder.controllerAnnotations(controllerAnnotations);

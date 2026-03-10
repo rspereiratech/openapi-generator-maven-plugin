@@ -613,7 +613,63 @@ class OpenApiGeneratorMojoTest {
     }
 
     // ==================================================================
-    // 9. buildConfig – contextPath wiring
+    // 9. buildConfig – ignoreDefaultParamTypes wiring
+    // ==================================================================
+
+    @Nested
+    @DisplayName("buildConfig – ignoreDefaultParamTypes wiring (via reflection)")
+    class BuildConfigIgnoreDefaultParamTypesTests {
+
+        @Test
+        @DisplayName("ignoreDefaultParamTypes defaults to true")
+        void defaultsToTrue() throws Exception {
+            OpenApiGeneratorMojo mojo = minimalMojo();
+
+            GeneratorConfig config = invokePrivate(mojo, "buildConfig");
+
+            Assertions.assertTrue(config.ignoreDefaultParamTypes(),
+                    "ignoreDefaultParamTypes must default to true");
+        }
+
+        @Test
+        @DisplayName("ignoreDefaultParamTypes false is propagated to GeneratorConfig")
+        void falseIsPropagated() throws Exception {
+            OpenApiGeneratorMojo mojo = minimalMojo();
+            setField(mojo, "ignoreDefaultParamTypes", false);
+
+            GeneratorConfig config = invokePrivate(mojo, "buildConfig");
+
+            Assertions.assertFalse(config.ignoreDefaultParamTypes());
+        }
+
+        @Test
+        @DisplayName("additionalIgnoredParamTypes are propagated to GeneratorConfig")
+        void additionalTypesArePropagated() throws Exception {
+            OpenApiGeneratorMojo mojo = minimalMojo();
+            setField(mojo, "additionalIgnoredParamTypes",
+                    List.of("com.example.MyContext", "com.example.OtherContext"));
+
+            GeneratorConfig config = invokePrivate(mojo, "buildConfig");
+
+            Assertions.assertEquals(
+                    List.of("com.example.MyContext", "com.example.OtherContext"),
+                    config.additionalIgnoredParamTypes());
+        }
+
+        @Test
+        @DisplayName("additionalIgnoredParamTypes is empty when mojo field is null")
+        void emptyWhenNull() throws Exception {
+            OpenApiGeneratorMojo mojo = minimalMojo();
+            setField(mojo, "additionalIgnoredParamTypes", null);
+
+            GeneratorConfig config = invokePrivate(mojo, "buildConfig");
+
+            Assertions.assertTrue(config.additionalIgnoredParamTypes().isEmpty());
+        }
+    }
+
+    // ==================================================================
+    // 11. buildConfig – contextPath wiring
     // ==================================================================
 
     @Nested
@@ -644,7 +700,7 @@ class OpenApiGeneratorMojoTest {
     }
 
     // ==================================================================
-    // 10. buildConfig – <securitySchemes> block wiring
+    // 12. buildConfig – <securitySchemes> block wiring
     // ==================================================================
 
     @Nested
