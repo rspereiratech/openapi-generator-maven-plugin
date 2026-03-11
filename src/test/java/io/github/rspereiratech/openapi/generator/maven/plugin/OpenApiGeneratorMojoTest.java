@@ -27,6 +27,14 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 
+/**
+ * Unit tests for {@link OpenApiGeneratorMojo}.
+ *
+ * <p>Covers parameter validation ({@code basePackages}, server entries, security-scheme
+ * entries), {@code GeneratorConfig} assembly from Mojo parameters, {@code outputFormat}
+ * parsing, and the skip-execution guard. Uses reflection to inject private Mojo fields
+ * without requiring a full Maven build lifecycle.
+ */
 @ExtendWith(MockitoExtension.class)
 class OpenApiGeneratorMojoTest {
 
