@@ -302,39 +302,9 @@ Default: `false`
 
 ## Pagination and Virtual Parameters
 
-Spring controllers often accept a `Pageable` parameter that should not appear as a raw
-parameter in the OpenAPI spec. The generator handles this transparently:
-
-- `org.springframework.data.domain.Pageable` and `PageRequest` parameters are recognised by
-  type name and mapped to a `$ref: '#/components/schemas/Pageable'` query parameter.
-- To hide `Pageable` entirely and document pagination with explicit query parameters instead,
-  annotate the `Pageable` argument with `@Parameter(hidden = true)` and declare the individual
-  params as method-level `@Parameter` / `@Parameters` annotations:
-
-```java
-@Parameters({
-    @Parameter(name = "page", in = ParameterIn.QUERY,
-               schema = @Schema(implementation = Integer.class),
-               description = "Zero-based page index (0..N)", example = "0"),
-    @Parameter(name = "size", in = ParameterIn.QUERY,
-               schema = @Schema(implementation = Integer.class),
-               description = "Number of records per page", example = "20"),
-    @Parameter(name = "sort", in = ParameterIn.QUERY,
-               schema = @Schema(implementation = String.class),
-               description = "Sort criteria: property(,asc|desc)", example = "name,asc")
-})
-@GetMapping("/search")
-public Page<ProductDto> search(
-        @RequestParam(required = false) String category,
-        @Parameter(hidden = true) Pageable pageable) { ... }
-```
-
-Method-level `@Parameter` annotations are called *virtual parameters*. They are appended to the
-concrete parameters collected from the Java method arguments. If a virtual parameter has the same
-`name` as a concrete one (`category` in the example above), the concrete parameter wins and the
-virtual entry is dropped.
-
-No additional plugin configuration is required for this pattern.
+`Pageable` handling and the virtual-parameter pattern (`@Parameter` / `@Parameters` at method
+level) are implemented entirely in `openapi-generator-core` and require no additional plugin
+configuration. See `docs/Architecture.md` in `openapi-generator-core` for the full explanation.
 
 ---
 
