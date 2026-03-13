@@ -146,6 +146,38 @@ mvn process-classes -X
 
 ---
 
+## Pagination parameters (`page`, `size`, `sort`) missing from the spec
+
+**Cause:** Spring's `Pageable` parameter is included in the spec as a single `$ref: Pageable`
+query parameter by default. If you want individual `page`, `size`, and `sort` query parameters
+instead (matching SpringDoc's virtual-parameter pattern), you need to hide `Pageable` and declare
+the params explicitly at the method level.
+
+**Fix:** Annotate the `Pageable` argument with `@Parameter(hidden = true)` and add method-level
+`@Parameter` / `@Parameters` annotations:
+
+```java
+@Parameters({
+    @Parameter(name = "page", in = ParameterIn.QUERY,
+               schema = @Schema(implementation = Integer.class),
+               description = "Zero-based page index (0..N)", example = "0"),
+    @Parameter(name = "size", in = ParameterIn.QUERY,
+               schema = @Schema(implementation = Integer.class),
+               description = "Number of records per page", example = "20"),
+    @Parameter(name = "sort", in = ParameterIn.QUERY,
+               schema = @Schema(implementation = String.class),
+               description = "Sort criteria: property(,asc|desc)", example = "name,asc")
+})
+@GetMapping("/search")
+public Page<ProductDto> search(
+        @Parameter(hidden = true) Pageable pageable) { ... }
+```
+
+See the [Configuration reference](Configuration.md#pagination-and-virtual-parameters) for
+a full example including a concrete `@RequestParam` alongside the virtual params.
+
+---
+
 ## Generated YAML is outdated after renaming or deleting an endpoint
 
 **Cause:** The output file is always overwritten on each build, but the build has not been re-run since the change.
