@@ -373,7 +373,6 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
         try {
             Thread.currentThread().setContextClassLoader(projectClassLoader);
             new OpenApiGeneratorImpl().generate(config, projectClassLoader);
-            getLog().info("OpenAPI spec written to: " + outputFile.getAbsolutePath());
         } catch (Exception e) {
             throw new MojoExecutionException("OpenAPI generation failed: " + e.getMessage(), e);
         } finally {
