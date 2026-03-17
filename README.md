@@ -61,7 +61,7 @@ Add the plugin to your project's `pom.xml`:
     <plugin>
       <groupId>io.github.rspereiratech</groupId>
       <artifactId>openapi-generator-maven-plugin</artifactId>
-      <version>1.1.0-SNAPSHOT</version>
+      <version>1.1.0</version>
       <executions>
         <execution>
           <goals>
@@ -95,7 +95,7 @@ mvn process-classes
     <basePackage>com.example.controller</basePackage>
   </basePackages>
   <title>My API</title>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.0</version>
 </configuration>
 ```
 
