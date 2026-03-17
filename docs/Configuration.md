@@ -275,7 +275,7 @@ Additional annotation class names treated as controller stereotypes, beyond the 
 
 ---
 
-## Skip
+## Deterministic Output
 
 ### `sortOutput`
 
@@ -386,6 +386,8 @@ mvn process-classes -Dopenapi.generator.defaultConsumesMediaType=application/xml
 Default: `application/json`
 
 ---
+
+## Skip
 
 ### `skip`
 

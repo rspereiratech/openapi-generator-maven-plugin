@@ -90,7 +90,6 @@ builder.myNewParam(myNewParam);
 4. **Document it** in:
    - The field Javadoc in `OpenApiGeneratorMojo`
    - The configuration table in `README.md`
-   - `CHANGELOG.md` under the appropriate version
 
 5. **Write tests** covering:
    - The value is correctly propagated to `GeneratorConfig`
@@ -113,5 +112,5 @@ builder.myNewParam(myNewParam);
 1. Fork the repository and create a branch from `master`.
 2. Implement your changes following the guidelines above.
 3. Ensure `mvn test` passes.
-4. Update `README.md` and `CHANGELOG.md`.
+4. Update `README.md` if new parameters were added.
 5. Open a pull request with a clear description of what was changed and why.

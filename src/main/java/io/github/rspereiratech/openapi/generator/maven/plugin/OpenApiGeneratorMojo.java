@@ -48,7 +48,7 @@ import java.util.List;
  * <h3>Minimal configuration example</h3>
  * <pre>{@code
  * <plugin>
- *   <groupId>com._8x8.vcc.superx.openapi</groupId>
+ *   <groupId>io.github.rspereiratech</groupId>
  *   <artifactId>openapi-generator-maven-plugin</artifactId>
  *   <configuration>
  *     <basePackages>
