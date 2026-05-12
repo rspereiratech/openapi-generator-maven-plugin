@@ -522,7 +522,9 @@ public class OpenApiGeneratorMojo extends AbstractMojo {
             }
             for (String element : project.getRuntimeClasspathElements()) {
                 URL url = new File(element).toURI().toURL();
-                if (!urls.contains(url)) urls.add(url);
+                if (!urls.contains(url)) {
+                    urls.add(url);
+                }
             }
         } catch (DependencyResolutionRequiredException e) {
             throw new MojoExecutionException("Could not resolve project classpath: " + e.getMessage(), e);

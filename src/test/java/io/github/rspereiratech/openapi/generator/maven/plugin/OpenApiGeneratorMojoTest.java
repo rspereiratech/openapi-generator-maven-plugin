@@ -68,8 +68,12 @@ class OpenApiGeneratorMojoTest {
             return (T) method.invoke(target);
         } catch (java.lang.reflect.InvocationTargetException e) {
             Throwable cause = e.getCause();
-            if (cause instanceof MojoExecutionException mee) throw mee;
-            if (cause instanceof Exception ex)            throw ex;
+            if (cause instanceof MojoExecutionException mee) {
+                throw mee;
+            }
+            if (cause instanceof Exception ex) {
+                throw ex;
+            }
             throw new RuntimeException(cause);
         }
     }
